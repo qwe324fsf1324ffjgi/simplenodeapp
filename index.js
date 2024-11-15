@@ -1,15 +1,18 @@
-const express = require("express");
+const express = require('express');
+const path = require('path');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Welcome to my app!!!!!!");
+// Serve static files (CSS) from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the index.html file when the root is accessed
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get("/info", (req, res) => {
-  res.send("hey this is /info api");
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.listen(3000, () => {
-  console.log("listening on 3000");
-});
